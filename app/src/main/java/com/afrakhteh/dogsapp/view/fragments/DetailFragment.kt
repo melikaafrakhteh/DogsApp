@@ -24,10 +24,8 @@ class DetailFragment : Fragment() {
 
         arguments?.let {
             dogId = DetailFragmentArgs.fromBundle(it).dogId
-            showid.text = dogId.toString()
         }
-
-        back_btn.setOnClickListener {
+        detail_fragment_back_iv.setOnClickListener {
             val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
             Navigation.findNavController(it).navigate(action)
         }

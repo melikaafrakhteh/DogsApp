@@ -11,4 +11,6 @@
     <color name="green">#78A61E</color>
     <color name="darkGreen">#578007</color>
     <color name="cream">#ffe0b2</color>
+    <color name="creamLight">#F1D2A6</color>
+    <color name="gray">#3E3E3D</color>
 </resources>

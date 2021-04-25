@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : Fragment() {
 
+    private var dogId = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -19,6 +21,11 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            dogId = DetailFragmentArgs.fromBundle(it).dogId
+            showid.text = dogId.toString()
+        }
 
         back_btn.setOnClickListener {
             val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()

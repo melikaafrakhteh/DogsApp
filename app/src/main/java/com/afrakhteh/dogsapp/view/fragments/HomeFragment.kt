@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         next_btn.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+            action.dogId = 3
             Navigation.findNavController(it).navigate(action)
         }
     }

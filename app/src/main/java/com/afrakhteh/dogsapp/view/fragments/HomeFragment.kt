@@ -5,11 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.afrakhteh.dogsapp.R
+import com.afrakhteh.dogsapp.model.DogsModel
+import com.afrakhteh.dogsapp.view.adapters.DogsListAdapter
+import com.afrakhteh.dogsapp.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
+
+    private lateinit var viewModel: ListViewModel
+    private var dogList: ArrayList<DogsModel> = ArrayList()
+    private lateinit var adapter: DogsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -20,5 +29,47 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
+        setupRecycler()
+        observeViewModel()
+
+    }
+
+    private fun observeViewModel() {
+        viewModel.dogs.observe(
+                this,
+                Observer { dogs ->
+                    dogs?.let {
+                        home_fragment_dogs_recycler.visibility = View.VISIBLE
+                        adapter.updateList(dogs)
+                    }
+                })
+        viewModel.dogsLoadingError.observe(
+                this,
+                Observer { isError ->
+                    isError?.let {
+                        home_fragment_error_msg_tv.visibility = if (it) View.VISIBLE else View.GONE
+                    }
+                })
+        viewModel.dogsLoading.observe(
+                this,
+                Observer { isLoading ->
+                    isLoading?.let {
+                        home_fragment_progress.visibility = if (it) View.VISIBLE else View.GONE
+                        if (it) {
+                            home_fragment_error_msg_tv.visibility = View.GONE
+                            home_fragment_dogs_recycler.visibility = View.GONE
+                        }
+                    }
+                }
+        )
+
+    }
+
+    private fun setupRecycler() {
+        home_fragment_dogs_recycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = adapter
+        }
     }
 }

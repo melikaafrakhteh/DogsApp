@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.afrakhteh.dogsapp.R
 import com.afrakhteh.dogsapp.model.DogsModel
+import com.afrakhteh.dogsapp.view.fragments.HomeFragmentDirections
 
 class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
     : RecyclerView.Adapter<DogsListAdapter.ViewHolder>() {
 
-    fun updateList(updateList: ArrayList<DogsModel>){
+    fun updateList(updateList: List<DogsModel>) {
         dogList.clear()
         dogList.addAll(updateList)
         notifyDataSetChanged()
@@ -43,6 +45,10 @@ class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
         fun setData(current: DogsModel, position: Int) {
             name.text = current.dogBread
             lifeSpan.text = current.dogLifeSpan
+            card.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+                Navigation.findNavController(it).navigate(action)
+            }
         }
 
     }

@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: ListViewModel
     private var dogList: ArrayList<DogsModel> = ArrayList()
-    private lateinit var adapter: DogsListAdapter
+    private lateinit var dogsListAdapter: DogsListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -30,9 +30,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
+        viewModel.refresh()
+
         setupRecycler()
         observeViewModel()
+        setupRefreshLayout()
 
+    }
+
+    private fun setupRefreshLayout() {
+        home_fragment_refresh_srlout.setOnRefreshListener {
+            home_fragment_dogs_recycler.visibility = View.GONE
+            home_fragment_error_msg_tv.visibility = View.GONE
+            home_fragment_progress.visibility = View.VISIBLE
+            home_fragment_refresh_srlout.isRefreshing = false
+        }
     }
 
     private fun observeViewModel() {
@@ -41,7 +53,7 @@ class HomeFragment : Fragment() {
                 Observer { dogs ->
                     dogs?.let {
                         home_fragment_dogs_recycler.visibility = View.VISIBLE
-                        adapter.updateList(dogs)
+                        dogsListAdapter.updateList(dogs)
                     }
                 })
         viewModel.dogsLoadingError.observe(
@@ -67,9 +79,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecycler() {
+        dogsListAdapter = DogsListAdapter(context!!,dogList)
         home_fragment_dogs_recycler.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = adapter
+            adapter = dogsListAdapter
+            dogsListAdapter?.notifyDataSetChanged()
         }
     }
 }

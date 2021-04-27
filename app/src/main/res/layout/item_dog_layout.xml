@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_dog_card_crd"
     android:layout_width="match_parent"
-    android:layout_height="280dp"
+    android:layout_height="260dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/creamLight"
     app:cardCornerRadius="20dp"
@@ -19,7 +19,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_margin="8dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="10dp">
         <ImageView
             android:id="@+id/item_dog_image_iv"
@@ -33,7 +33,8 @@
             android:id="@+id/item_dog_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:padding="2dp"
             tools:text="@string/app_name"
             android:lines="1"
@@ -45,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="4dp"
             android:padding="2dp"

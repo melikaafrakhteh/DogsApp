@@ -3,6 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/aguafina_script</item>
         <item>@font/calligraffitti</item>
+        <item>@font/lemon</item>
         <item>@font/yellowtail</item>
     </array>
 </resources>

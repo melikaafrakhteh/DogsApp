@@ -16,18 +16,18 @@
 
             <include
                 android:id="@+id/home_fragment_toolbar"
-                layout="@layout/home_toolbar" />
+                layout="@layout/home_toolbar"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_fragment_dogs_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="8dp"
                 android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_fragment_toolbar" />
+                app:layout_constraintTop_toBottomOf="@id/home_fragment_toolbar"/>
 
             <TextView
                 android:id="@+id/home_fragment_error_msg_tv"

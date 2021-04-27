@@ -14,12 +14,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/yellowtail"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/lemon"
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:layout_marginStart="8dp"/>
+            android:textSize="18sp" />
 </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"

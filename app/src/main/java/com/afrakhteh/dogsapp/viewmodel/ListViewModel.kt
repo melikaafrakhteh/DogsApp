@@ -2,8 +2,8 @@ package com.afrakhteh.dogsapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.afrakhteh.dogsapp.model.DogsModel
 import com.afrakhteh.dogsapp.model.api.DogsApiService
+import com.afrakhteh.dogsapp.model.datamodel.DogsModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver

@@ -1,4 +1,4 @@
-package com.afrakhteh.dogsapp.model
+package com.afrakhteh.dogsapp.model.datamodel
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

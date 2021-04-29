@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.afrakhteh.dogsapp.R
-import com.afrakhteh.dogsapp.model.DogsModel
+import com.afrakhteh.dogsapp.model.datamodel.DogsModel
 import com.afrakhteh.dogsapp.utils.getProgressDrawable
 import com.afrakhteh.dogsapp.utils.load
 import com.afrakhteh.dogsapp.view.fragments.HomeFragmentDirections

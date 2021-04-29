@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afrakhteh.dogsapp.R
-import com.afrakhteh.dogsapp.model.DogsModel
+import com.afrakhteh.dogsapp.model.datamodel.DogsModel
 import com.afrakhteh.dogsapp.view.adapters.DogsListAdapter
 import com.afrakhteh.dogsapp.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
         home_fragment_dogs_recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = dogsListAdapter
-            dogsListAdapter?.notifyDataSetChanged()
+            dogsListAdapter.notifyDataSetChanged()
         }
     }
 }

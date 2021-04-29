@@ -17,8 +17,8 @@ interface DogDao {
     suspend fun deleteAllData()
 
     @Query(" SELECT * FROM DogsModel ")
-    fun getAllData(): LiveData<List<DogsModel>>
+    suspend fun getAllData(): LiveData<List<DogsModel>>
 
     @Query(" SELECT * FROM DogsModel WHERE uuid = :id")
-    fun getOneItem(id: Int): DogsModel
+    suspend fun getOneItem(id: Int): DogsModel
 }

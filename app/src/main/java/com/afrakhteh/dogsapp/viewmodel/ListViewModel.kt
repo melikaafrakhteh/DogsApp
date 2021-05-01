@@ -1,15 +1,22 @@
 package com.afrakhteh.dogsapp.viewmodel
 
+import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.afrakhteh.dogsapp.model.api.DogsApiService
+import com.afrakhteh.dogsapp.model.database.DogsDatabase
 import com.afrakhteh.dogsapp.model.datamodel.DogsModel
+import com.afrakhteh.dogsapp.utils.SharedPreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class ListViewModel : ViewModel() {
+class ListViewModel(application: Application) : BaseViewModel(application) {
+
+    private var sharedResult = SharedPreferencesHelper(getApplication())
+    private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
 
     private val dogsApiService = DogsApiService()
     private val disposable = CompositeDisposable()
@@ -19,7 +26,25 @@ class ListViewModel : ViewModel() {
     val dogsLoading = MutableLiveData<Boolean>()
 
     fun refresh() {
-        fetchFromRemote()
+        val updateTime = sharedResult.getUpdateTime()
+        val isLessThanTime = updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime
+        if (isLessThanTime) {
+            fetchFromDatabase()
+        } else {
+            fetchFromRemote()
+        }
+
+    }
+
+    private fun fetchFromDatabase() {
+        dogsLoading.value = true
+        launch {
+            val dogs = DogsDatabase(getApplication()).getDao().getAllData()
+            dogsRetrieved(dogs)
+            Toast.makeText(getApplication(), "fetch from local database", Toast.LENGTH_LONG).show()
+
+        }
+
     }
 
     private fun fetchFromRemote() {
@@ -49,7 +74,22 @@ class ListViewModel : ViewModel() {
     }
 
     private fun storeLocallyData(t: List<DogsModel>) {
+        launch {
+            val db = DogsDatabase(getApplication()).getDao()
+            db.deleteAllData()
+            val result = db.insert(*t.toTypedArray())
+            var i = 0
+            while (i < t.size) {
+                t[i].uuid = result[i].toInt()
+                ++i
+            }
+            dogsRetrieved(t)
+        }
+        sharedResult.timeSaver(System.nanoTime())
+    }
 
+    fun refreshByPassCache() {
+        fetchFromRemote()
     }
 
     override fun onCleared() {

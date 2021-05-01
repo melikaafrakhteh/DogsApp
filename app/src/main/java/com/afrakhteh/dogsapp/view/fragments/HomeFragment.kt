@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
             home_fragment_dogs_recycler.visibility = View.GONE
             home_fragment_error_msg_tv.visibility = View.GONE
             home_fragment_progress.visibility = View.VISIBLE
+            viewModel.refreshByPassCache()
             home_fragment_refresh_srlout.isRefreshing = false
         }
     }

@@ -49,6 +49,7 @@ class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
             lifeSpan.text = current.dogLifeSpan
             card.setOnClickListener {
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+                action.dogId = dogList[position].uuid
                 Navigation.findNavController(it).navigate(action)
             }
             image.load(

@@ -2,15 +2,20 @@ package com.afrakhteh.dogsapp.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.afrakhteh.dogsapp.R
 import com.afrakhteh.dogsapp.databinding.ItemDogLayoutBinding
 import com.afrakhteh.dogsapp.model.datamodel.DogsModel
+import com.afrakhteh.dogsapp.view.fragments.HomeFragmentDirections
+import com.afrakhteh.dogsapp.view.interfaces.DogsClickListener
+import kotlinx.android.synthetic.main.item_dog_layout.view.*
 
 class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
-    : RecyclerView.Adapter<DogsListAdapter.ViewHolder>() {
+    : RecyclerView.Adapter<DogsListAdapter.ViewHolder>(), DogsClickListener {
 
     fun updateList(updateList: List<DogsModel>) {
         dogList.clear()
@@ -31,7 +36,9 @@ class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
         // holder.setData(current, position)
 
         holder.item.dogs = dogList[position]
+        holder.item.listeners = this
     }
+
 
     override fun getItemCount(): Int = dogList.size
 
@@ -56,5 +63,12 @@ class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
                )
            }*/
 
+    }
+
+    override fun onDogCliCk(v: View) {
+        val uuid = v.dogIdtv.text.toString().toInt()
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
+        action.dogId = uuid
+        Navigation.findNavController(v).navigate(action)
     }
 }

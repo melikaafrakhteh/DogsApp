@@ -2,6 +2,7 @@ package com.afrakhteh.dogsapp.utils
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.afrakhteh.dogsapp.R
 import com.bumptech.glide.Glide
@@ -21,4 +22,9 @@ fun ImageView.load(uri: String?, progressDrawable: CircularProgressDrawable) {
             .error(R.drawable.error)
 
     Glide.with(context).setDefaultRequestOptions(option).load(uri).into(this)
+}
+
+@BindingAdapter("android:imageuri")
+fun loadImage(view: ImageView, uri: String?) {
+    view.load(uri, getProgressDrawable(view.context))
 }

@@ -4,25 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.afrakhteh.dogsapp.R
-import com.afrakhteh.dogsapp.utils.getProgressDrawable
-import com.afrakhteh.dogsapp.utils.load
+import com.afrakhteh.dogsapp.databinding.FragmentDetailBinding
+import com.afrakhteh.dogsapp.view.interfaces.DogsBackClickListener
 import com.afrakhteh.dogsapp.viewmodel.DetailViewModel
-import kotlinx.android.synthetic.main.fragment_detail.*
 
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(), DogsBackClickListener {
 
     private var dogId = 0
     private lateinit var viewModel: DetailViewModel
 
+    private lateinit var dataBinding: FragmentDetailBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+                              savedInstanceState: Bundle?):
+            View? {
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +37,8 @@ class DetailFragment : Fragment() {
         viewModel.fetch(dogId)
 
         observeViewModel()
-        setClick()
+        // setClick()
+
     }
 
     private fun observeViewModel() {
@@ -42,25 +46,31 @@ class DetailFragment : Fragment() {
                 this,
                 Observer { dogs ->
                     dogs?.let {
-                        detail_fragment_name_tv.text = dogs.dogBread
-                        detail_fragment_purpose_tv.text = dogs.dogBreadFor
-                        detail_fragment_temp_tv.text = dogs.temperament
-                        detail_fragment_lifespan_tv.text = dogs.dogLifeSpan
-                        detail_fragment_image_iv.load(dogs.imageUrl, getProgressDrawable(this.context!!))
+                        /* detail_fragment_name_tv.text = dogs.dogBread
+                         detail_fragment_purpose_tv.text = dogs.dogBreadFor
+                         detail_fragment_temp_tv.text = dogs.temperament
+                         detail_fragment_lifespan_tv.text = dogs.dogLifeSpan
+                         detail_fragment_image_iv.load(dogs.imageUrl, getProgressDrawable(this.context!!))*/
+                        dataBinding.detail = dogs
                     }
                 })
     }
 
-    private fun setClick() {
-        detail_fragment_back_iv.setOnClickListener {
-            val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
-            Navigation.findNavController(it).navigate(action)
-        }
-    }
+    /* private fun setClick() {
+         detail_fragment_back_iv.setOnClickListener {
+             val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
+             Navigation.findNavController(it).navigate(action)
+         }
+     }*/
 
     private fun getData() {
         arguments?.let {
             dogId = DetailFragmentArgs.fromBundle(it).dogId
         }
+    }
+
+    override fun back(v: View) {
+        val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
+        Navigation.findNavController(v).navigate(action)
     }
 }

@@ -24,7 +24,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="2dp"
-            android:onClick="@{backListener::DogsBackClickListener}"
+            android:onClick="@{backListener::back}"
             android:src="@drawable/ic_baseline_keyboard_backspace_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,8 +34,8 @@
             android:layout_width="400dp"
             android:layout_height="500dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
             android:imageuri="@{detail.imageUrl}"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.454"
@@ -65,9 +65,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="2dp"
+                    android:text="@{detail.dogBread}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/darkGreen"
-                    android:text="@{detail.dogBread}" />
+                    android:textColor="@color/darkGreen" />
 
                 <TextView
                     android:id="@+id/detail_fragment_purpose_tv"
@@ -75,9 +75,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="2dp"
+                    android:text="@{detail.dogBreadFor}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/gray"
-                    android:text="@{detail.dogBreadFor}" />
+                    android:textColor="@color/gray" />
 
                 <TextView
                     android:id="@+id/detail_fragment_temp_tv"
@@ -85,9 +85,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="2dp"
+                    android:text="@{detail.temperament}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/gray"
-                    android:text="@{detail.temperament}" />
+                    android:textColor="@color/gray" />
 
                 <TextView
                     android:id="@+id/detail_fragment_lifespan_tv"
@@ -95,9 +95,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="2dp"
+                    android:text="@{detail.dogLifeSpan}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/gray"
-                    android:text="@{detail.dogLifeSpan}" />
+                    android:textColor="@color/gray" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

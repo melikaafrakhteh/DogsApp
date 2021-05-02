@@ -62,6 +62,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                                 dogsLoadingError.value = true
                                 dogsLoading.value = false
                                 e.printStackTrace()
+                                Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_LONG).show()
                             }
                         })
         )

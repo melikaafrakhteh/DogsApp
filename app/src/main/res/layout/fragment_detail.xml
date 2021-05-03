@@ -12,6 +12,10 @@
         <variable
             name="backListener"
             type="com.afrakhteh.dogsapp.view.interfaces.DogsBackClickListener" />
+
+        <variable
+            name="palette"
+            type="com.afrakhteh.dogsapp.model.datamodel.DogsPalette" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +50,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="290dp"
-            android:backgroundTint="@color/creamLight"
+            android:backgroundTint="@{palette.color}"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +61,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <TextView

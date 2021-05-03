@@ -1,5 +1,7 @@
 package com.afrakhteh.dogsapp.view.fragments
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.palette.graphics.Palette
 import com.afrakhteh.dogsapp.R
 import com.afrakhteh.dogsapp.databinding.FragmentDetailBinding
+import com.afrakhteh.dogsapp.model.datamodel.DogsPalette
 import com.afrakhteh.dogsapp.view.interfaces.DogsBackClickListener
 import com.afrakhteh.dogsapp.viewmodel.DetailViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 
 class DetailFragment : Fragment(), DogsBackClickListener {
 
@@ -52,7 +59,35 @@ class DetailFragment : Fragment(), DogsBackClickListener {
                          detail_fragment_lifespan_tv.text = dogs.dogLifeSpan
                          detail_fragment_image_iv.load(dogs.imageUrl, getProgressDrawable(this.context!!))*/
                         dataBinding.detail = dogs
+
+                        it.imageUrl?.let {
+                            setUpColor(it)
+                        }
                     }
+                })
+
+    }
+
+    private fun setUpColor(uri: String) {
+        Glide
+                .with(this)
+                .asBitmap()
+                .load(uri)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        Palette
+                                .from(resource)
+                                .generate { palette ->
+                                    val intColor = palette?.darkVibrantSwatch?.rgb ?: 0
+                                    val myPalette = DogsPalette(intColor)
+                                    dataBinding.palette = myPalette
+                                }
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+
+                    }
+
                 })
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.afrakhteh.dogsapp.model.api.DogsApiService
 import com.afrakhteh.dogsapp.model.database.DogsDatabase
 import com.afrakhteh.dogsapp.model.datamodel.DogsModel
+import com.afrakhteh.dogsapp.utils.Notification
 import com.afrakhteh.dogsapp.utils.SharedPreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -56,6 +57,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                         .subscribeWith(object : DisposableSingleObserver<List<DogsModel>>() {
                             override fun onSuccess(t: List<DogsModel>) {
                                 storeLocallyData(t)
+                                Notification(getApplication()).createNotification()
                             }
 
                             override fun onError(e: Throwable) {

@@ -35,4 +35,6 @@ class SharedPreferencesHelper {
     }
 
     fun getUpdateTime() = SHARED?.getLong(Constant.TIME_SHARED_SAVE, 0)
+
+    fun getCacheDuration() = SHARED?.getString("pref_duration", "")
 }

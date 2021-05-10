@@ -27,14 +27,26 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     val dogsLoading = MutableLiveData<Boolean>()
 
     fun refresh() {
+        checkDuration()
         val updateTime = sharedResult.getUpdateTime()
-        val isLessThanTime = updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime
+        val isLessThanTime =
+            updateTime != null && updateTime != 0L && System.nanoTime() - updateTime < refreshTime
         if (isLessThanTime) {
             fetchFromDatabase()
         } else {
             fetchFromRemote()
         }
 
+    }
+
+    private fun checkDuration() {
+        val cache = sharedResult.getCacheDuration()
+        try {
+            val cacheInt = cache?.toInt() ?: 5 * 60
+            refreshTime = cacheInt.times(1000 * 1000 * 1000L)
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+        }
     }
 
     private fun fetchFromDatabase() {
@@ -51,22 +63,22 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     private fun fetchFromRemote() {
         dogsLoading.value = true
         disposable.add(
-                dogsApiService.getDogs()
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(object : DisposableSingleObserver<List<DogsModel>>() {
-                            override fun onSuccess(t: List<DogsModel>) {
-                                storeLocallyData(t)
-                                Notification(getApplication()).createNotification()
-                            }
+            dogsApiService.getDogs()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<DogsModel>>() {
+                    override fun onSuccess(t: List<DogsModel>) {
+                        storeLocallyData(t)
+                        Notification(getApplication()).createNotification()
+                    }
 
-                            override fun onError(e: Throwable) {
-                                dogsLoadingError.value = true
-                                dogsLoading.value = false
-                                e.printStackTrace()
-                                Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_LONG).show()
-                            }
-                        })
+                    override fun onError(e: Throwable) {
+                        dogsLoadingError.value = true
+                        dogsLoading.value = false
+                        e.printStackTrace()
+                        Toast.makeText(getApplication(), e.toString(), Toast.LENGTH_LONG).show()
+                    }
+                })
         )
     }
 
@@ -99,4 +111,5 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
         super.onCleared()
         disposable.clear()
     }
+
 }

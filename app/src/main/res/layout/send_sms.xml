@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="480dp">
+
+    <data>
+
+        <variable
+            name="sms"
+            type="com.afrakhteh.dogsapp.model.datamodel.SmsInfo" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sms_destination_edtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center_horizontal"
+            android:hint="@string/sms_des_hint"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="11"
+            android:padding="4dp"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen"
+            android:textSize="24sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center_horizontal"
+            android:inputType="textMultiLine"
+            android:padding="4dp"
+            android:text="@{sms.text}"
+            android:textColor="@color/darkGreen"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:imageuri="@{sms.imageUrl}"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+</layout>

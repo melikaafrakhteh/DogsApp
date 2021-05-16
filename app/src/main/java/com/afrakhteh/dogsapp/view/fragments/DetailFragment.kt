@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,21 +16,26 @@ import androidx.palette.graphics.Palette
 import com.afrakhteh.dogsapp.R
 import com.afrakhteh.dogsapp.databinding.FragmentDetailBinding
 import com.afrakhteh.dogsapp.model.datamodel.DogsPalette
-import com.afrakhteh.dogsapp.view.interfaces.DogsBackClickListener
+import com.afrakhteh.dogsapp.view.activities.MainActivity
+import com.afrakhteh.dogsapp.view.interfaces.DogsDetailClickListener
 import com.afrakhteh.dogsapp.viewmodel.DetailViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 
-class DetailFragment : Fragment(), DogsBackClickListener {
+class DetailFragment : Fragment(), DogsDetailClickListener {
 
     private var dogId = 0
     private lateinit var viewModel: DetailViewModel
 
     private lateinit var dataBinding: FragmentDetailBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?):
+    private var sendSmsStarted = false
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ):
             View? {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         return dataBinding.root
@@ -107,5 +113,20 @@ class DetailFragment : Fragment(), DogsBackClickListener {
     override fun back(v: View) {
         val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
         Navigation.findNavController(v).navigate(action)
+        Toast.makeText(requireContext(), "back", Toast.LENGTH_LONG).show()
+    }
+
+    override fun send(v: View) {
+        sendSmsStarted = true
+        (activity as MainActivity).checkSmsPermission()
+        Toast.makeText(context, "send", Toast.LENGTH_LONG).show()
+    }
+
+    override fun share(v: View) {
+
+    }
+
+    fun onPermissionResult(permissionGranted: Boolean) {
+
     }
 }

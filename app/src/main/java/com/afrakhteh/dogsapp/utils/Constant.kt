@@ -12,5 +12,7 @@ class Constant {
 
         const val TIME_SHARED_SAVE = "time"
 
+        const val PERMISSION_SMS_CODE = 123
+
     }
 }

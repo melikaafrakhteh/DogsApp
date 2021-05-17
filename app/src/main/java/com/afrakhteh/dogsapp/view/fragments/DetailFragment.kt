@@ -9,7 +9,6 @@ import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -60,6 +59,8 @@ class DetailFragment : Fragment(), DogsDetailClickListener {
 
         observeViewModel()
         // setClick()
+
+        dataBinding.listener = this
 
     }
 
@@ -125,13 +126,13 @@ class DetailFragment : Fragment(), DogsDetailClickListener {
     override fun back(v: View) {
         val action = DetailFragmentDirections.actionDetailFragmentToHomeFragment()
         Navigation.findNavController(v).navigate(action)
-        Toast.makeText(requireContext(), "back", Toast.LENGTH_LONG).show()
+        //  Toast.makeText(requireContext(), "back", Toast.LENGTH_LONG).show()
     }
 
     override fun send(v: View) {
         sendSmsStarted = true
         (activity as MainActivity).checkSmsPermission()
-        Toast.makeText(context, "send", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "send", Toast.LENGTH_LONG).show()
     }
 
     override fun share(v: View) {

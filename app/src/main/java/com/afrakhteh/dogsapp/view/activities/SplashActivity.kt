@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
 
-    lateinit var aviLoad: Unit
+    private lateinit var aviLoad: Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +34,11 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    fun startAnim() {
+    private fun startAnim() {
         avi.show()
     }
 
-    fun stopAnim() {
+    private fun stopAnim() {
         avi.hide()
     }
 }

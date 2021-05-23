@@ -10,7 +10,7 @@ import com.afrakhteh.dogsapp.utils.Constant
 
 @Database(entities = [DogsModel::class], version = Constant.DATABASE_VERSION)
 abstract class DogsDatabase : RoomDatabase() {
-    abstract fun getDao(): DogDao
+   abstract fun getDao(): DogDao
 
     companion object {
         @Volatile

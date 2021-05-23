@@ -1,5 +1,6 @@
 package com.afrakhteh.dogsapp.model.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,7 +10,7 @@ import com.afrakhteh.dogsapp.model.datamodel.DogsModel
 @Dao
 interface DogDao {
 
-    @Insert()
+    @Insert
     suspend fun insert(vararg dogsModel: DogsModel): List<Long>
 
     @Delete
@@ -23,4 +24,8 @@ interface DogDao {
 
     @Query(" SELECT * FROM DogsModel WHERE uuid = :id")
     suspend fun getOneItem(id: Int): DogsModel
+
+    @Query("SELECT * FROM DogsModel  WHERE dog_name LIKE :query")
+    fun getSearch(query: String): LiveData<List<DogsModel>>
+
 }

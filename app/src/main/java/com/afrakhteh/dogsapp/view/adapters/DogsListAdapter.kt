@@ -14,7 +14,7 @@ import com.afrakhteh.dogsapp.view.fragments.HomeFragmentDirections
 import com.afrakhteh.dogsapp.view.interfaces.DogsClickListener
 import kotlinx.android.synthetic.main.item_dog_layout.view.*
 
-class DogsListAdapter(val context: Context, val dogList: ArrayList<DogsModel>)
+class DogsListAdapter(val context: Context, private val dogList: ArrayList<DogsModel>)
     : RecyclerView.Adapter<DogsListAdapter.ViewHolder>(), DogsClickListener {
 
     fun updateList(updateList: List<DogsModel>) {

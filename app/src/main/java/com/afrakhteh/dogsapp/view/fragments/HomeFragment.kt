@@ -40,8 +40,17 @@ class HomeFragment : Fragment() {
         observeViewModel()
         setupRefreshLayout()
         settings()
+        setupSearch(view)
 
     }
+
+    private fun setupSearch(view: View) {
+        home_toolbar_search_iv.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+            Navigation.findNavController(view).navigate(action)
+        }
+    }
+
 
     private fun settings() {
         home_toolbar_settings_iv.setOnClickListener {

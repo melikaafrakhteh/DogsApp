@@ -46,7 +46,8 @@ def supportVersion = '28.0.0'
 def retrofitVersion = '2.3.0'
 def glideVersion = '4.9.0'
 def rxJavaVersion = '2.1.1'
-def roomVersion = '2.1.0-rc01'
+//def roomVersion = '2.1.0-rc01'
+def roomVersion = '2.2.6'
 def navVersion = '2.1.0-alpha05'
 def preferencesVersion = '1.0.0'
 
@@ -72,6 +73,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
@@ -89,7 +91,7 @@ dependencies {
 
     implementation "com.android.support:palette-v7:$supportVersion"
 
-    implementation "androidx.preference:preference:$preferencesVersion"
+    implementation "androidx.preference:preference-ktx:$preferencesVersion"
 
     implementation 'com.wang.avi:library:2.1.3'
 

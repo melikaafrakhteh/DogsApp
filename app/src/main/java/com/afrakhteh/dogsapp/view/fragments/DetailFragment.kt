@@ -79,7 +79,7 @@ class DetailFragment : Fragment(), DogsDetailClickListener {
                          detail_fragment_image_iv.load(dogs.imageUrl, getProgressDrawable(this.context!!))*/
                         dataBinding.detail = dogs
 
-                        it.imageUrl?.let {
+                        it.imageUrl?.let { it ->
                             setUpColor(it)
                         }
                     }
